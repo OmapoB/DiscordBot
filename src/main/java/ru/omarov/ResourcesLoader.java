@@ -3,18 +3,11 @@ package ru.omarov;
 import java.io.FileInputStream;
 import java.util.Properties;
 
-public class TokenLoader {
+public class ResourcesLoader {
     private FileInputStream fis;
     private Properties properties;
-    private String token;
 
-    public TokenLoader() {
-    }
-
-
-    public String getToken() {
-        token = properties.getProperty("token");
-        return token;
+    public ResourcesLoader() {
     }
 
     public FileInputStream getFis() {
