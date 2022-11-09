@@ -19,6 +19,7 @@ public class Bot {
             new FileInputStream("src/main/resources/config.properties"),
             new Properties()
     );
+    private JDA bot;
     private final String TOKEN = loader.getProperties().getProperty("token");
     private final String GUILD_ID = loader.getProperties().getProperty("guildId");
 
@@ -30,17 +31,19 @@ public class Bot {
     }
 
     public void start() throws InterruptedException {
-        JDA bot = JDABuilder.createDefault(TOKEN)
+        bot = JDABuilder.createDefault(TOKEN)
                 .enableIntents(intents)
                 .addEventListeners(eventListeners.toArray())
                 .build()
                 .awaitReady();
+    }
 
+    private void commandsRecorder() {
         Guild guild = bot.getGuildById(GUILD_ID);
         if (guild != null) {
             for (Command command :
-                    HelpCommand.allCommands.values()) {
-                guild.upsertCommand(command.getText(), command.getDescription()).queue();
+                    CommandsHandler.COMMANDS.values()) {
+                guild.upsertCommand(command.getName(), command.getDescription()).queue();
             }
         }
     }
@@ -51,6 +54,14 @@ public class Bot {
 
     public void setEventListeners(List<EventListener> eventListeners) {
         this.eventListeners = eventListeners;
+    }
+
+    public JDA getBot() {
+        return bot;
+    }
+
+    public void setBot(JDA bot) {
+        this.bot = bot;
     }
 
     public List<GatewayIntent> getIntents() {

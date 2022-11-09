@@ -1,24 +1,23 @@
 package ru.omarov.commands.list;
 
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import ru.omarov.commands.CommandsHandler;
+
 import java.util.Map;
 
-public class HelpCommand extends Command {
-    public static final Map<String, Command> allCommands = Map.ofEntries(
-            Map.entry("help", new HelpCommand()),
-            Map.entry("play", new PlayCommand())
-    );
-
+public class HelpCommand extends AbstractCommand {
     public HelpCommand() {
-        this.setText("help");
+        this.setName("help");
         this.setDescription("выводит список команд");
     }
 
-    public static String getHelp() {
+    @Override
+    public void execute(SlashCommandInteractionEvent event) {
         StringBuilder help = new StringBuilder();
         for (Command command :
-                allCommands.values()) {
+                CommandsHandler.COMMANDS.values()) {
             help.append(command.toString());
         }
-        return help.toString();
+        event.reply(help.toString()).queue();
     }
 }
