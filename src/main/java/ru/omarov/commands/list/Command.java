@@ -1,30 +1,15 @@
 package ru.omarov.commands.list;
 
-public abstract class Command {
-    private String text;
-    private String description;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
-    public Command() {
-    }
+public interface Command {
+    void execute(SlashCommandInteractionEvent event);
 
-    public String getText() {
-        return text;
-    }
+    String getName();
 
-    public void setText(String text) {
-        this.text = text;
-    }
+    void setName(String name);
 
-    public String getDescription() {
-        return description;
-    }
+    String getDescription();
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return text + ": " + description + "\n";
-    }
+    void setDescription(String description);
 }
