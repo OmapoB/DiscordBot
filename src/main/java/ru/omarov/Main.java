@@ -12,6 +12,7 @@ public class Main {
         Bot bot = new Bot();
         bot.setEventListeners(List.of(new CommandsHandler()));
         bot.setIntents(List.of(GatewayIntent.MESSAGE_CONTENT));
-        bot.start();
+        bot.startBot();
+        bot.commandsRegister();
     }
 }

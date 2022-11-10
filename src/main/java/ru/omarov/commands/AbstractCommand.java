@@ -1,32 +1,29 @@
-package ru.omarov.commands.list;
+package ru.omarov.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class AbstractCommand implements Command {
     private String name;
     private String description;
-
     private List<OptionData> options;
 
     @Override
-    public void execute(SlashCommandInteractionEvent event) {
+    public void execute(@NotNull SlashCommandInteractionEvent event) {
         event.reply("this command doing nothing.").queue();
     }
 
-    public boolean hasOptions() {
-        return !options.isEmpty();
-    }
-
+    @Override
     public List<OptionData> getOptions() {
         return options;
     }
 
-    public void setOptions(OptionData... options) {
-        this.options = List.of(options);
+    @Override
+    public void setOptions(List<OptionData> options) {
+        this.options = options;
     }
 
     @Override

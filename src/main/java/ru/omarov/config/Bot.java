@@ -4,10 +4,11 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.hooks.EventListener;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import ru.omarov.commands.CommandsHandler;
-import ru.omarov.commands.list.Command;
+import ru.omarov.commands.Command;
 import ru.omarov.commands.list.HelpCommand;
 
 import java.io.FileInputStream;
@@ -30,7 +31,7 @@ public class Bot {
     public Bot() throws IOException {
     }
 
-    public void start() throws InterruptedException {
+    public void startBot() throws InterruptedException {
         bot = JDABuilder.createDefault(TOKEN)
                 .enableIntents(intents)
                 .addEventListeners(eventListeners.toArray())
@@ -38,12 +39,19 @@ public class Bot {
                 .awaitReady();
     }
 
-    private void commandsRecorder() {
+    public void commandsRegister() {
         Guild guild = bot.getGuildById(GUILD_ID);
         if (guild != null) {
             for (Command command :
                     CommandsHandler.COMMANDS.values()) {
-                guild.upsertCommand(command.getName(), command.getDescription()).queue();
+                if (command.getOptions() != null) {
+                    guild.upsertCommand(command.getName(), command.getDescription())
+                            .addOptions(command.getOptions())
+                            .queue();
+                } else {
+                    guild.upsertCommand(command.getName(), command.getDescription())
+                            .queue();
+                }
             }
         }
     }

@@ -1,9 +1,10 @@
 package ru.omarov.commands.list;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import org.jetbrains.annotations.NotNull;
+import ru.omarov.commands.AbstractCommand;
+import ru.omarov.commands.Command;
 import ru.omarov.commands.CommandsHandler;
-
-import java.util.Map;
 
 public class HelpCommand extends AbstractCommand {
     public HelpCommand() {
@@ -12,7 +13,7 @@ public class HelpCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(SlashCommandInteractionEvent event) {
+    public void execute(@NotNull SlashCommandInteractionEvent event) {
         StringBuilder help = new StringBuilder();
         for (Command command :
                 CommandsHandler.COMMANDS.values()) {
