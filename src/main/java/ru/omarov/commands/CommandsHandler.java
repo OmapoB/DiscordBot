@@ -18,6 +18,10 @@ public class CommandsHandler extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
+        if (event.getUser().isBot()) {
+            event.reply("Бот, пошел на йух!");
+            return;
+        }
         COMMANDS.get(event.getName()).execute(event);
     }
 }
