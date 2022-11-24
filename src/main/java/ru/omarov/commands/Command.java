@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public interface Command {
+
     void execute(@NotNull SlashCommandInteractionEvent event);
 
     List<OptionData> getOptions();
