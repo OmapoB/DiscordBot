@@ -1,10 +1,12 @@
 package ru.omarov.events;
 
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.StringSelectInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import ru.omarov.config.Bot;
 
 public class EventsHandler extends ListenerAdapter {
 
@@ -19,14 +21,23 @@ public class EventsHandler extends ListenerAdapter {
         }
         event.getGuild()
                 .getChannelById(TextChannel.class, 1032334538292068352L)
-                .sendMessage("Салам алейкум.\n" +
+                .sendMessage("Салам алейкум уцыыы.\n" +
                         "Введи команду /names, чтобы выбрать ник" +
-                        " и получить роль")
+                        " и получить роль жиес.")
                 .queue();
     }
 
     @Override
-    public void onModalInteraction(ModalInteractionEvent event) {
-        return;
+    public void onStringSelectInteraction(StringSelectInteractionEvent event) {
+        Guild guild = event.getGuild();
+        assert guild != null;
+        Member member = event.getMember();
+        assert member != null;
+        Role newRole = guild.getRoleById("935230486811398254");
+        assert newRole != null;
+        String chosenNickname = event.getInteraction().getValues().get(0);
+        guild.modifyNickname(member, chosenNickname).queue();
+        guild.addRoleToMember(member, newRole).queue();
+        event.getInteraction().replyFormat("Теперь вы %s и %s", chosenNickname, newRole.getName()).queue();
     }
 }
