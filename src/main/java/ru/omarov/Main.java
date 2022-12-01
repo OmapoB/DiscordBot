@@ -13,7 +13,8 @@ public class Main {
         Bot bot = new Bot();
         bot.setEventListeners(List.of(new CommandsHandler(),
                 new EventsHandler()));
-        bot.setIntents(List.of(GatewayIntent.MESSAGE_CONTENT));
+        bot.setIntents(List.of(GatewayIntent.MESSAGE_CONTENT,
+                GatewayIntent.GUILD_MEMBERS));
         bot.startBot();
         bot.commandsRegister();
     }

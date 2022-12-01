@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 import ru.omarov.commands.AbstractCommand;
-import ru.omarov.commands.CommandsHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class KickCommand extends AbstractCommand {
 
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
-        List<String> whiteList = new ArrayList<>();
+        List<String> whiteList = new ArrayList<>(); //пока нет бдшки
         List<Member> toKick = event.getOption(member).getMentions().getMembers();
         if (toKick
                 .size() == 0) {

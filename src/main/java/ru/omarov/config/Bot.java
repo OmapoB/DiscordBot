@@ -4,16 +4,14 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.hooks.EventListener;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import ru.omarov.commands.CommandsHandler;
 import ru.omarov.commands.Command;
-import ru.omarov.commands.list.HelpCommand;
+import ru.omarov.commands.CommandsHandler;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Properties;
 
 public class Bot {
     private final ResourcesLoader loader = new ResourcesLoader(
