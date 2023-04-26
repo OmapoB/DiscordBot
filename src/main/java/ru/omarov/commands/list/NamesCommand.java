@@ -34,7 +34,6 @@ public class NamesCommand extends AbstractCommand {
                 .build();
 
         event.reply("Выберите себе никнейм")
-                .setEphemeral(true)
                 .addActionRow(list)
                 .queue();
     }
